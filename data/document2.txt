@@ -1,0 +1,11 @@
+Cloud Computing Fundamentals
+
+Cloud computing is the delivery of computing services over the internet, offering faster innovation, flexible resources, and economies of scale. These services include servers, storage, databases, networking, software, analytics, and intelligence.
+
+There are three main types of cloud computing services: Infrastructure as a Service (IaaS), Platform as a Service (PaaS), and Software as a Service (SaaS). IaaS provides fundamental computing resources such as virtual machines and storage. PaaS offers development tools, middleware, and operating systems. SaaS delivers complete applications managed by the provider.
+
+Cloud deployment models include public, private, and hybrid clouds. Public clouds are owned and operated by third-party providers. Private clouds are dedicated to a single organization. Hybrid clouds combine public and private clouds, allowing data and applications to move between them.
+
+Major cloud providers include Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform. AWS offers over 200 services, including compute power, storage options, and machine learning. Azure provides integrated cloud services and is particularly strong in hybrid cloud scenarios. Google Cloud focuses on high compute offerings, data analytics, and machine learning.
+
+Benefits of cloud computing include cost savings, scalability, reliability, and increased collaboration. However, organizations must consider security concerns, compliance requirements, and potential vendor lock-in when adopting cloud solutions. 

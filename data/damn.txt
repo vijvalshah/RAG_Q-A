@@ -1,0 +1,567 @@
+1.Write a simple PL/SQL Block to print Hello World. 
+
+
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Hello World');
+END;
+
+
+  
+2.Write a simple PL/SQL block to accept two numbers from user and perform all four basic mathematical operations. 
+
+
+
+DECLARE
+   num1 NUMBER := &num1;
+   num2 NUMBER := &num2;
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Addition: ' || (num1 + num2));
+   DBMS_OUTPUT.PUT_LINE('Subtraction: ' || (num1 - num2));
+   DBMS_OUTPUT.PUT_LINE('Multiplication: ' || (num1 * num2));
+   DBMS_OUTPUT.PUT_LINE('Division: ' || (num1 / num2));
+END;
+
+
+ 
+
+3.Write a simple PL/SQL block to fetch the salary of employee named ‘Ravi’ from the Employee table.
+
+
+
+
+DECLARE
+   emp_salary NUMBER;
+BEGIN
+   SELECT salary INTO emp_salary
+   FROM employee
+   WHERE name = 'Ravi';
+
+   DBMS_OUTPUT.PUT_LINE('Salary of Ravi is: ' || emp_salary);
+END;
+
+
+
+
+
+4. Write a simple PL/SQL block to accept the department number from user and print the count of employees in that department specified by the user.  
+
+
+
+
+DECLARE
+   dept_no NUMBER := &dept_no;
+   emp_count NUMBER;
+BEGIN
+   SELECT COUNT(*) INTO emp_count
+   FROM employee
+   WHERE department_id = dept_no;
+
+   DBMS_OUTPUT.PUT_LINE('Number of employees in department ' || dept_no || ' is: ' || emp_count);
+END;
+
+ 
+
+
+
+
+5. Write a simple PL/SQL block to get the age of a person as input and determine if the person is eligible to vote or not.  
+
+ 
+
+DECLARE
+   age NUMBER := &age;
+BEGIN
+   IF age >= 18 THEN
+      DBMS_OUTPUT.PUT_LINE('Eligible to vote');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('Not eligible to vote');
+   END IF;
+END;
+
+
+
+
+6. Write a simple PL/SQL block to find the greatest of three given numbers.
+
+
+
+DECLARE
+   a NUMBER := &a;
+   b NUMBER := &b;
+   c NUMBER := &c;
+   greatest NUMBER;
+BEGIN
+   IF a > b AND a > c THEN
+      greatest := a;
+   ELSIF b > c THEN
+      greatest := b;
+   ELSE
+      greatest := c;
+   END IF;
+
+   DBMS_OUTPUT.PUT_LINE('Greatest number is: ' || greatest);
+END;
+
+ 
+
+ 
+7. Write a simple PL/SQL block to get the day of the week as input from user and print the corresponding day. 1 – SUN and 7-SAT 
+
+
+
+DECLARE
+   day_num NUMBER := &day_num;
+   day_name VARCHAR2(10);
+BEGIN
+   CASE day_num
+      WHEN 1 THEN day_name := 'Sunday';
+      WHEN 2 THEN day_name := 'Monday';
+      WHEN 3 THEN day_name := 'Tuesday';
+      WHEN 4 THEN day_name := 'Wednesday';
+      WHEN 5 THEN day_name := 'Thursday';
+      WHEN 6 THEN day_name := 'Friday';
+      WHEN 7 THEN day_name := 'Saturday';
+      ELSE
+         day_name := 'Invalid Day';
+   END CASE;
+
+   DBMS_OUTPUT.PUT_LINE('Day: ' || day_name);
+END;
+
+
+ 
+
+9. Write a simple PL/SQL block to print the sum of first n natural numbers using for loop.   
+
+ 
+DECLARE
+   n NUMBER := &n;
+   sum NUMBER := 0;
+BEGIN
+   FOR i IN 1..n LOOP
+      sum := sum + i;
+   END LOOP;
+
+   DBMS_OUTPUT.PUT_LINE('Sum = ' || sum);
+END;
+
+
+
+
+10. Write a simple PL/SQL block to print the sum of first n natural numbers using while loop. 
+
+
+
+DECLARE
+   n NUMBER := &n;
+   i NUMBER := 1;
+   sum NUMBER := 0;
+BEGIN
+   WHILE i <= n LOOP
+      sum := sum + i;
+      i := i + 1;
+   END LOOP;
+
+   DBMS_OUTPUT.PUT_LINE('Sum = ' || sum);
+END;
+
+
+
+
+
+
+
+
+
+
+///////////////////////////trigger----cursor///////////////////////////////////////////////
+
+
+1. Create a trigger named display_salary_changes. The trigger should fire whenever there is a¬¬
+delete or insert or update on customers table. The difference in salary should be computed and
+displayed. Assume that the table customers contains the fields id, name, age, address, salary.
+
+ 
+
+
+CREATE OR REPLACE TRIGGER display_salary_changes
+AFTER INSERT OR DELETE OR UPDATE ON customers
+FOR EACH ROW
+BEGIN
+   IF INSERTING THEN
+      DBMS_OUTPUT.PUT_LINE('New Customer Added: ' || :NEW.name || ' with salary ' || :NEW.salary);
+   ELSIF DELETING THEN
+      DBMS_OUTPUT.PUT_LINE('Customer Deleted: ' || :OLD.name || ' had salary ' || :OLD.salary);
+   ELSIF UPDATING THEN
+      DBMS_OUTPUT.PUT_LINE('Customer Salary Updated: ' || :OLD.name);
+      DBMS_OUTPUT.PUT_LINE('Old Salary: ' || :OLD.salary || ', New Salary: ' || :NEW.salary);
+      DBMS_OUTPUT.PUT_LINE('Difference: ' || (:NEW.salary - :OLD.salary));
+   END IF;
+END;
+
+ 
+
+ 
+
+
+2. Create a trigger named display_seme¬¬¬ster_changes. The trigger should fire whenever a student¬¬¬
+semester value is changed in student table. Assume that the student table contains the fields
+regno, name, age, dept, semester. Display the old and new value in the command line.
+
+
+
+
+CREATE OR REPLACE TRIGGER display_semester_changes
+BEFORE UPDATE OF semester ON student
+FOR EACH ROW
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Semester change for student: ' || :OLD.name);
+   DBMS_OUTPUT.PUT_LINE('Old Semester: ' || :OLD.semester);
+   DBMS_OUTPUT.PUT_LINE('New Semester: ' || :NEW.semester);
+END;
+
+ 
+
+
+
+3. Demonstrate an example for implicit cursor – ROWCOUNT.
+
+  
+BEGIN
+   UPDATE customers
+   SET salary = salary + 1000
+   WHERE age > 30;
+
+   DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT || ' rows updated.');
+END;
+
+ 
+
+ 
+
+4. Create an explicit cursor named c_customers and fetch the id, name and address of all
+customers in the customer table using the cursor.
+
+ 
+DECLARE
+   CURSOR c_customers IS
+      SELECT id, name, address FROM customers;
+
+   v_id customers.id%TYPE;
+   v_name customers.name%TYPE;
+   v_address customers.address%TYPE;
+BEGIN
+   OPEN c_customers;
+   LOOP
+      FETCH c_customers INTO v_id, v_name, v_address;
+      EXIT WHEN c_customers%NOTFOUND;
+      DBMS_OUTPUT.PUT_LINE('ID: ' || v_id || ', Name: ' || v_name || ', Address: ' || v_address);
+   END LOOP;
+   CLOSE c_customers;
+END;
+
+
+ 
+
+5. Create an explicit cursor named c_customers and fetch the details of all customers in the
+customer table whose age is greater than 50 using the cursor.
+
+ 
+
+
+ DECLARE
+   CURSOR c_customers IS
+      SELECT * FROM customers WHERE age > 50;
+
+   v_customer customers%ROWTYPE;
+BEGIN
+   OPEN c_customers;
+   LOOP
+      FETCH c_customers INTO v_customer;
+      EXIT WHEN c_customers%NOTFOUND;
+      DBMS_OUTPUT.PUT_LINE('ID: ' || v_customer.id || ', Name: ' || v_customer.name || 
+                           ', Age: ' || v_customer.age || ', Address: ' || v_customer.address ||
+                           ', Salary: ' || v_customer.salary);
+   END LOOP;
+   CLOSE c_customers;
+END;
+
+
+
+
+
+
+
+6. Create an explicit cursor named c_customers and fetch the details of all customers who are
+minors.
+
+
+
+DECLARE
+   CURSOR c_customers IS
+      SELECT * FROM customers WHERE age < 18;
+
+   v_customer customers%ROWTYPE;
+BEGIN
+   OPEN c_customers;
+   LOOP
+      FETCH c_customers INTO v_customer;
+      EXIT WHEN c_customers%NOTFOUND;
+      DBMS_OUTPUT.PUT_LINE('ID: ' || v_customer.id || ', Name: ' || v_customer.name || 
+                           ', Age: ' || v_customer.age || ', Address: ' || v_customer.address ||
+                           ', Salary: ' || v_customer.salary);
+   END LOOP;
+   CLOSE c_customers;
+END;
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////PL/SQL function and procedure/////////////////////////////////
+
+
+
+1. Write a PL/SQL function to print Hello world.     
+
+
+CREATE OR REPLACE FUNCTION print_hello_world
+RETURN VARCHAR2 IS
+BEGIN
+   RETURN 'Hello World';
+END;
+
+
+to test
+
+BEGIN
+   DBMS_OUTPUT.PUT_LINE(print_hello_world);
+END;
+
+
+
+
+
+2. Write a PL/SQL function that returns the total number of employees present.    
+
+
+CREATE OR REPLACE FUNCTION get_total_employees
+RETURN NUMBER IS
+   total NUMBER;
+BEGIN
+   SELECT COUNT(*) INTO total FROM employee;
+   RETURN total;
+END;
+
+
+
+To test:
+
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Total Employees: ' || get_total_employees);
+END;
+
+
+
+
+3. Write a PL/SQL function that displays the course description for a course. If the course is not available, suitable message should be displayed stating that the course is not available. 
+
+
+CREATE OR REPLACE FUNCTION get_course_description(p_course_id IN VARCHAR2)
+RETURN VARCHAR2 IS
+   desc_text VARCHAR2(200);
+BEGIN
+   SELECT description INTO desc_text
+   FROM courses
+   WHERE course_id = p_course_id;
+
+   RETURN desc_text;
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      RETURN 'Course not available.';
+END;
+
+
+    
+To test:
+
+BEGIN
+   DBMS_OUTPUT.PUT_LINE(get_course_description('CS101'));
+END;
+
+
+ 
+
+
+4. Write a PL/SQL procedure to print Hello world.     
+
+ 
+CREATE OR REPLACE PROCEDURE proc_hello_world IS
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Hello World');
+END;
+
+
+to test:
+
+BEGIN
+   proc_hello_world;
+END;
+
+
+
+
+5. Write a PL/SQL procedure to accept name as input parameter and print a greeting message.     
+
+ 
+CREATE OR REPLACE PROCEDURE greet_by_name(p_name IN VARCHAR2) IS
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Hello, ' || p_name || '!');
+END;
+
+
+to test:
+
+BEGIN
+   greet_by_name('Alex');
+END;
+
+
+
+
+6. Write a PL/SQL procedure that sets a greeting message to the output parameter. Invoke the procedure and observe the output. 
+
+ 
+
+CREATE OR REPLACE PROCEDURE set_greeting(p_name IN VARCHAR2, p_msg OUT VARCHAR2) IS
+BEGIN
+   p_msg := 'Welcome, ' || p_name || '!';
+END;
+
+
+to test:
+
+DECLARE
+   message VARCHAR2(100);
+BEGIN
+   set_greeting('Maria', message);
+   DBMS_OUTPUT.PUT_LINE(message);
+END;
+
+
+
+
+
+
+7. Write a PL/SQL procedure using IN OUT parameter to display a greeting message. 
+
+
+CREATE OR REPLACE PROCEDURE greet_inout(p_name IN OUT VARCHAR2) IS
+BEGIN
+   p_name := 'Hello, ' || p_name || '!';
+END;
+
+
+to test:
+
+DECLARE
+   name_msg VARCHAR2(100) := 'Sam';
+BEGIN
+   greet_inout(name_msg);
+   DBMS_OUTPUT.PUT_LINE(name_msg);
+END;
+
+
+
+  
+8. Write a PL/SQL procedure to compute the employee bonus and print the same.    
+ 
+
+CREATE OR REPLACE PROCEDURE compute_bonus(p_emp_id IN NUMBER) IS
+   emp_salary NUMBER;
+   bonus NUMBER;
+BEGIN
+   SELECT salary INTO emp_salary FROM employee WHERE id = p_emp_id;
+
+   bonus := emp_salary * 0.10;
+
+   DBMS_OUTPUT.PUT_LINE('Bonus for employee ID ' || p_emp_id || ' is: ' || bonus);
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('Employee not found.');
+END;
+
+
+
+ 
+to test:
+
+BEGIN
+   compute_bonus(101);
+END;
+
+
+
+
+
+9. Write a PL/SQL procedure for inserting values into student table. 
+
+
+CREATE OR REPLACE PROCEDURE insert_student(
+   p_regno IN NUMBER,
+   p_name IN VARCHAR2,
+   p_age IN NUMBER,
+   p_dept IN VARCHAR2,
+   p_semester IN NUMBER
+) IS
+BEGIN
+   INSERT INTO student(regno, name, age, dept, semester)
+   VALUES (p_regno, p_name, p_age, p_dept, p_semester);
+
+   DBMS_OUTPUT.PUT_LINE('Student record inserted successfully.');
+END;
+
+
+
+to test:
+
+BEGIN
+   insert_student(101, 'Anita', 20, 'CSE', 4);
+END;
+
+  
+
+ 
+
+10. Write a PL/SQL procedure to check if an employee exists in database and throw suitable exception message if not present.    
+
+
+
+CREATE OR REPLACE PROCEDURE check_employee(p_emp_id IN NUMBER) IS
+   v_name VARCHAR2(100);
+BEGIN
+   SELECT name INTO v_name
+   FROM employee
+   WHERE id = p_emp_id;
+
+   DBMS_OUTPUT.PUT_LINE('Employee found: ' || v_name);
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('Employee with ID ' || p_emp_id || ' does not exist.');
+END;
+
+
+
+
+to test:
+
+BEGIN
+   check_employee(105);
+END;
+
+

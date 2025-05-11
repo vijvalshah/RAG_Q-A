@@ -1,0 +1,11 @@
+Artificial Intelligence Overview
+
+Artificial Intelligence (AI) refers to computer systems designed to perform tasks that typically require human intelligence. These tasks include learning, reasoning, problem-solving, perception, and language understanding.
+
+Machine Learning is a subset of AI that focuses on developing algorithms that allow computers to learn from and make predictions or decisions based on data. Deep Learning is a specialized form of Machine Learning that uses neural networks with many layers.
+
+AI has numerous applications across various industries, including healthcare, finance, transportation, and customer service. In healthcare, AI systems can assist in diagnosing diseases, developing treatment plans, and discovering new medications. In finance, AI algorithms can detect fraudulent transactions, optimize trading strategies, and provide personalized financial advice.
+
+Natural Language Processing (NLP) is a branch of AI that enables computers to understand, interpret, and generate human language. This technology powers virtual assistants like Siri and Alexa, as well as translation services and sentiment analysis tools.
+
+Despite its benefits, AI raises important ethical considerations. Issues such as data privacy, algorithmic bias, job displacement, and autonomous weapons require careful attention from researchers, policymakers, and society as a whole. 

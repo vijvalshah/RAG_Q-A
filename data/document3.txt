@@ -1,0 +1,11 @@
+Introduction to Blockchain Technology
+
+Blockchain is a type of distributed ledger technology that records transactions across multiple computers in a way that ensures security, transparency, and immutability. Each block contains a timestamp, transaction data, and a cryptographic hash of the previous block, forming a chain.
+
+The key features of blockchain include decentralization, transparency, immutability, and security. Decentralization means that no single entity has control over the entire network. Transparency allows participants to view the ledger's transactions. Immutability ensures that once data is recorded, it cannot be altered. Security is maintained through cryptographic techniques.
+
+Bitcoin was the first application of blockchain technology, introduced in 2008 by a person or group using the pseudonym Satoshi Nakamoto. Since then, blockchain has expanded beyond cryptocurrencies to various use cases such as supply chain management, healthcare records, voting systems, and smart contracts.
+
+Ethereum, launched in 2015, introduced the concept of smart contracts—self-executing contracts with the terms of the agreement directly written into code. This innovation enabled the development of decentralized applications (dApps) and decentralized finance (DeFi) platforms.
+
+Consensus mechanisms are protocols that ensure all nodes in the blockchain network agree on the validity of transactions. Popular consensus mechanisms include Proof of Work (PoW), Proof of Stake (PoS), and Delegated Proof of Stake (DPoS). PoW requires miners to solve complex mathematical problems to validate transactions, while PoS selects validators based on the number of coins they hold and are willing to "stake" as collateral. 

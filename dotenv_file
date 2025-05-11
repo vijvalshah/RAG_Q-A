@@ -1,0 +1,7 @@
+# Google Gemini API Key
+# Replace this with your actual Google Gemini API key
+GOOGLE_API_KEY=your_google_api_key_here
+
+# Model configuration
+# Uncomment and set to use a different Gemini model 
+# GEMINI_MODEL_NAME=gemini-1.5-pro 
